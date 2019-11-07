@@ -20,6 +20,7 @@ namespace X.Web
     {
         public Startup(IConfiguration configuration)
         {
+            //¹þ¹þ
             Configuration = configuration;
         }
 
