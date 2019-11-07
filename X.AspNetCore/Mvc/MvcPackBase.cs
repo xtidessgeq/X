@@ -44,15 +44,15 @@ namespace X.AspNetCore.Mvc
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
             });
 #else
-            services.AddMvc(options =>
-            {
-                options.Conventions.Add(new DashedRoutingConvention());
-                options.Filters.Add(new OnlineUserAuthorizationFilter()); // 构建在线用户信息
-                options.Filters.Add(new FunctionAuthorizationFilter()); // 全局功能权限过滤器
-            }).AddJsonOptions(options =>
-            {
-                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            //services.AddMvc(options =>
+            //{
+            //    options.Conventions.Add(new DashedRoutingConvention());
+            //    options.Filters.Add(new OnlineUserAuthorizationFilter()); // 构建在线用户信息
+            //    options.Filters.Add(new FunctionAuthorizationFilter()); // 全局功能权限过滤器
+            //}).AddJsonOptions(options =>
+            //{
+            //    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+            //}).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 #endif
 
             services.AddScoped<UnitOfWorkFilterImpl>();
