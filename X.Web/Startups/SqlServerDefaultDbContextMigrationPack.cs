@@ -4,6 +4,7 @@ using System.ComponentModel;
 using X.Core.Packs;
 using X.Entity;
 using X.Entity.Database;
+using X.EntityFrameworkCore;
 using X.EntityFrameworkCore.Defaults;
 using X.EntityFrameworkCore.Migration;
 using X.EntityFrameworkCore.SqlServer;
@@ -30,7 +31,9 @@ namespace X.Web.Startups
 
         protected override DefaultDbContext CreateDbContext(IServiceProvider scopedProvider)
         {
-            return new SqlServerDesignTimeDefaultDbContextFactory(scopedProvider).CreateDbContext(new string[0]);
+
+          //todo 为什么不使用这个 return (DefaultDbContext)scopedProvider.GetService(typeof(DefaultDbContext));
+           return new SqlServerDesignTimeDefaultDbContextFactory(scopedProvider).CreateDbContext(new string[0]);
         }
     }
 }

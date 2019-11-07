@@ -31,7 +31,7 @@ namespace X.EntityFrameworkCore
         public static IServiceCollection AddOsharpDbContext<TDbContext>(this IServiceCollection services, Action<IServiceProvider, DbContextOptionsBuilder> optionsAction = null) where TDbContext : DbContextBase
         {
             services.AddDbContext<TDbContext>((provider, builder) =>
-            {
+            {//todo 配置的一些信息，以及在什么时候会被调用
                 Type dbContextType = typeof(TDbContext);
                 OsharpOptions osharpOptions = provider.GetOSharpOptions();
                 OsharpDbContextOptions osharpDbContextOptions = osharpOptions?.GetDbContextOptions(dbContextType);

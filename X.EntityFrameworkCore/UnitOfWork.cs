@@ -112,7 +112,7 @@ namespace X.EntityFrameworkCore
                 {
                     _connection.Open();
                 }
-
+                //开启事务
                 _transaction = _connection.BeginTransaction();
             }
 

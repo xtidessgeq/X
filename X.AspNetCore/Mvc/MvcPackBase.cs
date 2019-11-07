@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
 using Newtonsoft.Json.Serialization;
+
 using X.AspNetCore.Mvc.Conventions;
+using X.AspNetCore.Mvc.Filters;
 using X.Core.Packs;
 
 
@@ -41,25 +44,18 @@ namespace X.AspNetCore.Mvc
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
             });
 #else
-            //services.AddMvcCore(options =>
-            //{
-            //    options.Conventions.Add(new DashedRoutingConvention());
-            //    //options.Filters.Add(new OnlineUserAuthorizationFilter()); // 构建在线用户信息
-            //    //options.Filters.Add(new FunctionAuthorizationFilter()); // 全局功能权限过滤器
-            //}).AddJsonOptions(options =>
-            //{
-            //    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-            //}).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            services.AddMvcCore(options =>
+            services.AddMvc(options =>
             {
                 options.Conventions.Add(new DashedRoutingConvention());
-                //options.Filters.Add(new OnlineUserAuthorizationFilter()); // 构建在线用户信息
-                //options.Filters.Add(new FunctionAuthorizationFilter()); // 全局功能权限过滤器
-            });
+                options.Filters.Add(new OnlineUserAuthorizationFilter()); // 构建在线用户信息
+                options.Filters.Add(new FunctionAuthorizationFilter()); // 全局功能权限过滤器
+            }).AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 #endif
 
-            //todo    services.AddScoped<UnitOfWorkFilterImpl>();
+            services.AddScoped<UnitOfWorkFilterImpl>();
             services.AddHttpsRedirection(opts => opts.HttpsPort = 443);
             services.AddDistributedMemoryCache();
 
@@ -77,7 +73,7 @@ namespace X.AspNetCore.Mvc
             UseCors(app);
 #else   
             UseCors(app);
-          //todo  app.UseMvcWithAreaRoute();
+            app.UseMvcWithAreaRoute();
 #endif
 
             IsEnabled = true;

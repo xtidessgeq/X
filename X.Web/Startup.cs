@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using X.AspNetCore;
 using X.Reflection;
 using X.Core;
+using X.AspNetCore.Mvc.Filters;
 namespace X.Web
 {
     public class Startup
@@ -30,6 +31,7 @@ namespace X.Web
             services.AddControllers();
            services.AddControllersWithViews();
             services.AddOSharp<AspOsharpPackManager>();
+            services.AddScoped<UnitOfWorkFilterImpl>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

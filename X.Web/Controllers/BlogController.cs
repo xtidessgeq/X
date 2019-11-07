@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using X.AspNetCore.Mvc.Filters;
 using X.AspNetCore.UI;
 using X.Data;
 using X.Demo.Core.Blogs;
@@ -35,6 +36,7 @@ namespace X.Web.Controllers
         /// <returns>博客列表分页信息</returns>
         [HttpPost]
         [Description("读取")]
+
         public IEnumerable<Blog> Read( )
         {
             var page = BlogsContract.Blogs.ToList();
@@ -49,6 +51,7 @@ namespace X.Web.Controllers
         /// <returns>JSON操作结果</returns>
         [HttpPost]
         [Description("申请")]
+        [UnitOfWork]
         public async Task<AjaxResult> Apply(BlogInputDto dto)
         {
             Check.NotNull(dto, nameof(dto));
